@@ -5,7 +5,7 @@ services:
     env: docker
     rootDir: backend
     dockerContext: .
-    dockerfile: Dockerfile
+    dockerfilePath: Dockerfile
     plan: free
     envVars:
       - key: SPRING_DATASOURCE_URL
