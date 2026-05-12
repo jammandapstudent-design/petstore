@@ -1,13 +1,23 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Container, Box, IconButton, Badge } from '@mui/material';
-import { PawPrint, ShoppingCart, User, Menu } from 'lucide-react';
+import { PawPrint, ShoppingCart, User, Menu, Heart } from 'lucide-react';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  cartCount: number;
+  favoritesCount: number;
+  onOpenCart: () => void;
+  onOpenFavorites: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ cartCount, favoritesCount, onOpenCart, onOpenFavorites }) => {
   return (
-    <AppBar position="sticky" elevation={0} sx={{ bgcolor: 'white', borderBottom: '1px solid', borderColor: 'slate.100' }}>
-      <Container maxWidth="lg">
+    <AppBar position="sticky" elevation={0} sx={{ bgcolor: 'white', borderBottom: '1px solid', borderColor: 'slate.100', width: '100%' }}>
+      <Container maxWidth={false} sx={{ px: { xs: 2, md: 4 } }}>
         <Toolbar disableGutters sx={{ height: 80 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'primary.main', cursor: 'pointer' }}>
+          <Box 
+            onClick={() => window.location.reload()}
+            sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'primary.main', cursor: 'pointer' }}
+          >
             <PawPrint size={32} strokeWidth={2.5} />
             <Typography
               variant="h5"
@@ -36,8 +46,13 @@ const Navbar: React.FC = () => {
           </Box>
 
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <IconButton sx={{ color: '#475569' }}>
-              <Badge badgeContent={2} color="secondary">
+            <IconButton sx={{ color: '#475569' }} onClick={onOpenFavorites}>
+              <Badge badgeContent={favoritesCount} color="error">
+                <Heart size={22} />
+              </Badge>
+            </IconButton>
+            <IconButton sx={{ color: '#475569' }} onClick={onOpenCart}>
+              <Badge badgeContent={cartCount} color="secondary">
                 <ShoppingCart size={22} />
               </Badge>
             </IconButton>

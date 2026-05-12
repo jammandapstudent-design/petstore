@@ -1,13 +1,16 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Button, Box, Chip } from '@mui/material';
 import { ShoppingCart, Heart } from 'lucide-react';
-import { Pet } from '../api/petApi';
+import type { Pet } from '../api/petApi';
 
 interface PetCardProps {
   pet: Pet;
+  onAddToCart: (pet: Pet) => void;
+  onToggleFavorite: (pet: Pet) => void;
+  isFavorite: boolean;
 }
 
-const PetCard: React.FC<PetCardProps> = ({ pet }) => {
+const PetCard: React.FC<PetCardProps> = ({ pet, onAddToCart, onToggleFavorite, isFavorite }) => {
   return (
     <Card 
       sx={{ 
@@ -34,13 +37,18 @@ const PetCard: React.FC<PetCardProps> = ({ pet }) => {
         <Chip 
           label={pet.category} 
           size="small" 
+          onClick={(e) => {
+            e.stopPropagation();
+            // This could potentially trigger a category filter if passed down
+          }}
           sx={{ 
             position: 'absolute', 
             top: 12, 
             right: 12, 
             bgcolor: 'rgba(255, 255, 255, 0.9)',
             fontWeight: 600,
-            color: 'primary.main'
+            color: 'primary.main',
+            cursor: 'pointer'
           }} 
         />
       </Box>
@@ -63,6 +71,10 @@ const PetCard: React.FC<PetCardProps> = ({ pet }) => {
           <Button 
             variant="contained" 
             fullWidth 
+            onClick={(e) => {
+              e.stopPropagation();
+              onAddToCart(pet);
+            }}
             startIcon={<ShoppingCart size={18} />}
             sx={{ 
               borderRadius: 2, 
@@ -76,14 +88,23 @@ const PetCard: React.FC<PetCardProps> = ({ pet }) => {
           </Button>
           <Button 
             variant="outlined" 
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleFavorite(pet);
+            }}
             sx={{ 
               minWidth: 'auto', 
               borderRadius: 2, 
-              borderColor: 'slate.200',
-              color: 'slate.600'
+              borderColor: isFavorite ? 'error.light' : 'slate.200',
+              color: isFavorite ? 'error.main' : 'slate.600',
+              bgcolor: isFavorite ? 'error.50' : 'transparent',
+              '&:hover': {
+                borderColor: isFavorite ? 'error.main' : 'slate.300',
+                bgcolor: isFavorite ? 'error.50' : 'slate.50',
+              }
             }}
           >
-            <Heart size={18} />
+            <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
           </Button>
         </Box>
       </CardContent>

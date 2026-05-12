@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Box, Typography, TextField, MenuItem, CircularProgress, Container } from '@mui/material';
+import { Grid, Box, Typography, TextField, MenuItem, CircularProgress, Container, Chip } from '@mui/material';
 import PetCard from './PetCard';
-import { getPets, Pet } from '../api/petApi';
+import { getPets } from '../api/petApi';
+import type { Pet } from '../api/petApi';
 import { Search } from 'lucide-react';
 
-const PetGallery: React.FC = () => {
+interface PetGalleryProps {
+  onAddToCart: (pet: Pet) => void;
+  onToggleFavorite: (pet: Pet) => void;
+  favorites: number[];
+}
+
+const PetGallery: React.FC<PetGalleryProps> = ({ onAddToCart, onToggleFavorite, favorites }) => {
   const [pets, setPets] = useState<Pet[]>([]);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState('');
@@ -32,7 +39,7 @@ const PetGallery: React.FC = () => {
   );
 
   return (
-    <Container maxWidth="lg" sx={{ py: 6 }}>
+    <Container maxWidth={false} sx={{ py: 6, px: { xs: 2, md: 4 } }}>
       <Box sx={{ mb: 6 }}>
         <Typography variant="h3" component="h1" sx={{ fontWeight: 800, mb: 2, color: '#1e293b' }}>
           Find Your Perfect Friend
@@ -41,7 +48,7 @@ const PetGallery: React.FC = () => {
           Browse through our curated collection of lovable pets waiting for a forever home.
         </Typography>
 
-        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', mb: 3 }}>
           <TextField
             placeholder="Search pets..."
             variant="outlined"
@@ -80,23 +87,46 @@ const PetGallery: React.FC = () => {
             <MenuItem value="Bird">Birds</MenuItem>
           </TextField>
         </Box>
+
+        <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+          {['', 'Dog', 'Cat', 'Bird'].map((cat) => (
+            <Chip
+              key={cat}
+              label={cat || 'All'}
+              onClick={() => setCategory(cat)}
+              color={category === cat ? 'primary' : 'default'}
+              sx={{ 
+                fontWeight: 600, 
+                px: 1,
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                '&:hover': { transform: 'scale(1.05)' }
+              }}
+            />
+          ))}
+        </Box>
       </Box>
 
       {loading ? (
         <Box sx={{ display: 'flex', justifyContent: 'center', py: 10 }}>
-          <CircularProgress />
+          <CircularProgress size={60} thickness={4} />
         </Box>
       ) : filteredPets.length > 0 ? (
         <Grid container spacing={4}>
           {filteredPets.map((pet) => (
             <Grid item key={pet.id} xs={12} sm={6} md={4} lg={3}>
-              <PetCard pet={pet} />
+              <PetCard 
+                pet={pet} 
+                onAddToCart={onAddToCart}
+                onToggleFavorite={onToggleFavorite}
+                isFavorite={pet.id ? favorites.includes(pet.id) : false}
+              />
             </Grid>
           ))}
         </Grid>
       ) : (
-        <Box sx={{ textAlign: 'center', py: 10 }}>
-          <Typography variant="h5" color="text.secondary">
+        <Box sx={{ textAlign: 'center', py: 10, bgcolor: 'slate.50', borderRadius: 4 }}>
+          <Typography variant="h5" color="text.secondary" sx={{ fontWeight: 600 }}>
             No pets found matching your criteria.
           </Typography>
         </Box>
