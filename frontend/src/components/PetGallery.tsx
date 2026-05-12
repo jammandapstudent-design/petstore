@@ -63,8 +63,10 @@ const PetGallery: React.FC<PetGalleryProps> = ({ onAddToCart, onToggleFavorite, 
                 bgcolor: 'white'
               }
             }}
-            InputProps={{
-              startAdornment: <Search size={18} style={{ marginRight: 8, color: '#64748b' }} />,
+            slotProps={{
+              input: {
+                startAdornment: <Search size={18} style={{ marginRight: 8, color: '#64748b' }} />,
+              }
             }}
           />
           <TextField
@@ -114,7 +116,7 @@ const PetGallery: React.FC<PetGalleryProps> = ({ onAddToCart, onToggleFavorite, 
       ) : filteredPets.length > 0 ? (
         <Grid container spacing={4}>
           {filteredPets.map((pet) => (
-            <Grid item key={pet.id} xs={12} sm={6} md={4} lg={3}>
+            <Grid key={pet.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
               <PetCard 
                 pet={pet} 
                 onAddToCart={onAddToCart}

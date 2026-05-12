@@ -19,8 +19,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose, items, onRemove,
       anchor="right"
       open={open}
       onClose={onClose}
-      PaperProps={{
-        sx: { width: { xs: '100%', sm: 400 }, p: 0 }
+      slotProps={{
+        paper: { sx: { width: { xs: '100%', sm: 400 }, p: 0 } }
       }}
     >
       <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>

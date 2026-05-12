@@ -20,8 +20,8 @@ const FavoritesDrawer: React.FC<FavoritesDrawerProps> = ({ open, onClose, items,
       anchor="right"
       open={open}
       onClose={onClose}
-      PaperProps={{
-        sx: { width: { xs: '100%', sm: 420 }, p: 0 }
+      slotProps={{
+        paper: { sx: { width: { xs: '100%', sm: 420 }, p: 0 } }
       }}
     >
       <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -60,7 +60,7 @@ const FavoritesDrawer: React.FC<FavoritesDrawerProps> = ({ open, onClose, items,
             }}>
               <Heart size={72} strokeWidth={1} />
               <Typography sx={{ fontWeight: 600 }}>No favorites yet</Typography>
-              <Typography variant="body2" color="text.secondary" textAlign="center">
+              <Typography variant="body2" color="text.secondary" component="p" sx={{ textAlign: 'center' }}>
                 Click the heart icon on any pet to save it here!
               </Typography>
             </Box>

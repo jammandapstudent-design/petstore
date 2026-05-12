@@ -57,7 +57,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ open, onClose, items, onO
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth PaperProps={{ sx: { borderRadius: 4, overflow: 'hidden' } }}>
+    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth slotProps={{ paper: { sx: { borderRadius: 4, overflow: 'hidden' } } }}>
       {/* Header */}
       <Box sx={{ p: 3, pb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', bgcolor: '#f8fafc', borderBottom: '1px solid', borderColor: 'divider' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
@@ -88,16 +88,16 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ open, onClose, items, onO
                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>Personal Information</Typography>
               </Box>
               <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField fullWidth label="First Name" name="firstName" value={form.firstName} onChange={handleChange} size="small" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField fullWidth label="Last Name" name="lastName" value={form.lastName} onChange={handleChange} size="small" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField fullWidth label="Email Address" name="email" type="email" value={form.email} onChange={handleChange} size="small" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField fullWidth label="Phone Number" name="phone" value={form.phone} onChange={handleChange} size="small" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
               </Grid>
@@ -112,16 +112,16 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ open, onClose, items, onO
                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>Shipping Address</Typography>
               </Box>
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField fullWidth label="Street Address" name="address" value={form.address} onChange={handleChange} size="small" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField fullWidth label="City" name="city" value={form.city} onChange={handleChange} size="small" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid size={{ xs: 3 }}>
                   <TextField fullWidth label="State" name="state" value={form.state} onChange={handleChange} size="small" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid size={{ xs: 3 }}>
                   <TextField fullWidth label="ZIP" name="zip" value={form.zip} onChange={handleChange} size="small" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
               </Grid>
@@ -155,16 +155,16 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ open, onClose, items, onO
               </Box>
 
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField fullWidth label="Name on Card" name="cardName" value={form.cardName} onChange={handleChange} size="small" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField fullWidth label="Card Number" name="cardNumber" value={form.cardNumber} onChange={handleChange} size="small" placeholder="1234 5678 9012 3456" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField fullWidth label="Expiry (MM/YY)" name="expiry" value={form.expiry} onChange={handleChange} size="small" placeholder="MM/YY" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField fullWidth label="CVV" name="cvv" value={form.cvv} onChange={handleChange} size="small" type="password" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }} />
                 </Grid>
               </Grid>
